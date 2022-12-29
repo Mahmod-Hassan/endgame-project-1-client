@@ -6,11 +6,12 @@ import { toast } from 'react-hot-toast';
 const Post = () => {
 
     // used react hook form to get input data
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const imgHostKey = process.env.REACT_APP_imgbb_key;
 
     // component name is here
     const handlePost = data => {
+        console.log(data);
         const image = data.image[0];
         if (!image) {
             return toast.error('please upload a photo')
@@ -25,8 +26,25 @@ const Post = () => {
             .then(res => res.json())
             .then(imgData => {
                 if (imgData.success === true) {
-                    toast.success('Your post successfully shared')
                     console.log(imgData.data.url);
+                    const post = {
+                        textPost: data.textPost,
+                        image: imgData.data.url
+                    }
+                    fetch('http://localhost:5000/post', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(post)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.acknowledged === true) {
+                                toast.success('Your post successfull')
+                                reset();
+                            }
+                        })
                 }
             })
     }
@@ -39,8 +57,9 @@ const Post = () => {
                 {/* textarea for writing user felling */}
                 <textarea {...register("textPost", { required: true })} placeholder='Whats on your mind Mahmod?' className='input input-bordered w-full h-20 pt-2' /><br></br>
                 {errors.textPost && <p className='text-red-500'>this field is required</p>}
-                {/* upload_file input start */}
-                <label onClick={setUploadPhoto(true)}
+
+                {/* input type file is wrapped by label tag*/}
+                <label
                     className="flex justify-center w-full h-32 px-4 bg-white my-5 border-2 border-gray-300 border-dashed cursor-pointer">
                     <span className="flex items-center space-x-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -52,18 +71,15 @@ const Post = () => {
                             Upload Photo
                         </span>
                     </span>
-
-
+                    {/* input type file is here that wrapped into a label tag*/}
                     <input {...register('image')} type="file" className="hidden" />
                 </label>
-                {/* upload_file input end */}
 
 
                 {/* post button is start */}
                 <div className="flex justify-center">
                     <input className='btn w-1/2 ' type="submit" value="POST" />
                 </div>
-                {/* post button is end */}
 
             </form>
         </div>

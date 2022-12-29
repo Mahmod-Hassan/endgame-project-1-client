@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
     const links = <>
-        <li><Link to='/home'>Home</Link></li>
+        <li><Link to='/'>Home</Link></li>
         <li><Link to='/media'>Media</Link></li>
         <li><Link to='/message'>Message</Link></li>
         <li><Link to='/about'>About</Link></li>
     </>
     return (
-        <div className="navbar bg-slate-100">
+        <div className="navbar bg-slate-100 mb-10">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -27,7 +29,9 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                <span className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    Viral Media
+                </span>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -35,7 +39,15 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn glass text-black">Login</a>
+                {
+                    user?.email ?
+                        <button onClick={logOut} to='/login' className="btn glass text-black mr-4">Logout</button>
+                        :
+                        <>
+                            <Link to='/login' className="btn glass text-black mr-4">Login</Link>
+                            <Link to='/register' className="btn glass text-black">Register</Link>
+                        </>
+                }
             </div>
         </div>
     );
