@@ -9,20 +9,20 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 const UploadPost = () => {
 
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
     // used react hook form to get input data
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const imgHostKey = process.env.REACT_APP_imgbb_key;
 
     // component name is here
     const handlePost = data => {
+        if (!user?.email) {
+            return toast.error('please login first')
+        }
         const image = data.image[0];
         if (!image) {
             return toast.error('please upload a photo')
         }
-        if (!user?.email) {
-            return toast.error('please login first')
-        }
+
         const formData = new FormData();
         formData.append('image', image);
         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostKey}`;
@@ -66,7 +66,7 @@ const UploadPost = () => {
                 <textarea {...register("textPost", { required: true })} placeholder='Whats on your mind Mahmod?' className='input input-bordered w-full h-20' />
                 {errors.textPost && <p className='text-red-500'>this field is required</p>}
 
-                <input type="file" className="file-input file-input-bordered w-full" />
+                <input {...register('image')} type="file" className="file-input file-input-bordered w-full" />
 
                 {/* post button is start */}
                 <div className="flex justify-center">

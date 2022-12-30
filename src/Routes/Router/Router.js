@@ -3,7 +3,7 @@ import Main from "../../Layout/Main";
 import About from "../../pages/About/About";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
-import Media from "../../pages/Media/Media";
+import Media from "../../pages/Media/Media/Media";
 import PostDetails from "../../pages/PostDetails/PostDetails";
 import Register from "../../pages/Register/Register";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/media',
-                element: <Media></Media>
+                element: <PrivateRouter><Media></Media></PrivateRouter>
             },
             {
                 path: '/media/:id',
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/about',
-                element: <About></About>
+                element: <PrivateRouter><About></About></PrivateRouter>
             },
         ]
     }

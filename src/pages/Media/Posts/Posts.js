@@ -1,9 +1,10 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Post from './Post';
+import Post from '../Post/Post';
 
 
-const Media = () => {
+
+const Posts = () => {
 
     const { data: posts = [], isLoading, refetch } = useQuery({
         queryKey: ['post'],
@@ -21,7 +22,7 @@ const Media = () => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-4 gap-5 p-5 bg-gray-100'>
 
-            <div className='text-xl d-none md:block bg-white'>
+            <div className='text-xl d-none hidden md:block bg-white'>
                 <p className="text-2xl text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-pink-500">
                     All Users
                 </p>
@@ -36,7 +37,7 @@ const Media = () => {
                     )
                 }
             </div>
-            <div className="border d-none md:block bg-white">
+            <div className="border d-none hidden md:block bg-white">
                 <p className="text-2xl text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-green-500">
                     Message
                 </p>
@@ -45,4 +46,4 @@ const Media = () => {
     );
 };
 
-export default Media;
+export default Posts;

@@ -1,21 +1,35 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import Modal from './Modal';
 
 const About = () => {
+    const { user } = useContext(AuthContext);
+    const { data: updatedUserInfo = [], isLoading, refetch } = useQuery({
+        queryKey: [''],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/user/${user?.uid}`);
+            const data = await res.json();
+            return data
+        }
+    })
+    if (isLoading) {
+        return <button className='btn loading'></button>
+    }
+    const { name, email, address, university } = updatedUserInfo;
     return (
         <>
             <div className='md:w-2/3 lg:w-1/2 mx-auto shadow-md p-5 bg-gray-800 text-white'>
-                <div className='flex justify-between'>
-                    <img className='ml-16 w-20 h-20 rounded-full' src="https://i.ibb.co/kSJ995W/IMG-20221223-WA0000.jpg" alt="" />
-
-                    <label htmlFor="edit-myInfo-modal" className="btn btn-sm bg-red-500 border-none">Edit</label>
+                <label htmlFor="edit-myInfo-modal" className="btn btn-sm bg-red-500 border-none">Edit</label>
+                <div className='grid justify-center text-center'>
+                    <img className='w-20 h-20 rounded-full mx-auto' src="https://i.ibb.co/kSJ995W/IMG-20221223-WA0000.jpg" alt="" />
+                    <h1 className='text-pink-500 font-bold text-3xl'>{name}</h1>
+                    <p className='text-blue-400'>{email}</p>
+                    <p>address: {address}</p>
+                    <p>university: {university}</p>
                 </div>
-                <h1 className='text-pink-500 font-bold text-3xl'>Mahmod Hasan</h1>
-                <p>Email: <span>mahmod7788@gmail.com</span></p>
-                <p>Address: <span>Chittagong, Bangladesh</span></p>
-                <p>College: Syedabad Adarsha College</p>
             </div>
-            <Modal></Modal>
+            <Modal refetch={refetch}></Modal>
         </>
 
     );

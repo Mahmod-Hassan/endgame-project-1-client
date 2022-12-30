@@ -30,8 +30,8 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
-                const user = result.user;
-                savedUserToDatabase(user?.displayName, user?.email)
+                const user = result?.user;
+                savedUserToDatabase(user?.displayName, user?.email, user?.uid)
             })
             .catch(err => {
                 toast.error(err.message);
@@ -39,8 +39,8 @@ const Login = () => {
     }
     // google sign in method end
 
-    const savedUserToDatabase = (name, email) => {
-        const user = { name, email, location: 'empty', university: 'empty' }
+    const savedUserToDatabase = (name, email, uid) => {
+        const user = { name, email, uid }
         fetch(`http://localhost:5000/user?email=${email}`, {
             method: 'PUT',
             headers: {
@@ -81,7 +81,7 @@ const Login = () => {
 
                     <button className='btn btn-primary mt-4 w-full' type="submit">Login</button>
                 </form>
-                <p className='text-sm mt-10 mb-5'>New to this website </p><Link to='/register' className='text-blue-500 underline hover:underline-offset-8 font-bold'>please register</Link>
+                <p className='text-sm mt-10 mb-5'>New to this website <Link to='/register' className='text-blue-500 underline hover:underline-offset-8 font-bold'>please register</Link></p>
 
                 <button onClick={handleGoogleSignIn} className="btn btn-outline btn-white w-full">SignIn With Google</button>
             </div>

@@ -20,7 +20,9 @@ const TopThreePost = () => {
         <div className='grid gap-y-10 lg:w-4/5 mx-auto bg-danger mt-10'>
             <h1 className='text-center text-green-500 font-bold text-5xl'>TOP 3 POSTS</h1>
             {
-                topPosts.map(post => <div className='shadow-lg p-5 rounded-lg'>
+                topPosts.map(post => <div
+                    key={post?._id}
+                    className='shadow-lg p-5 rounded-lg'>
                     <p className='mb-4'>{post?.textPost}</p>
                     <img className='w-full h-48' src={post?.image} alt="" />
                     <div className='flex justify-between items-center my-2 flex-wrap'>
