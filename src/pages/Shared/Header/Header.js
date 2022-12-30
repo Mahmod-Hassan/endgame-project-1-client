@@ -11,7 +11,7 @@ const Header = () => {
         <li><Link to='/about'>About</Link></li>
     </>
     return (
-        <div className="navbar bg-slate-100 mb-10">
+        <div className="navbar bg-gray-800 text-white mb-10">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -41,11 +41,11 @@ const Header = () => {
             <div className="navbar-end">
                 {
                     user?.email ?
-                        <button onClick={logOut} to='/login' className="btn glass text-black mr-4">Logout</button>
+                        <button onClick={logOut} to='/login' className="btn glassmr-4">Logout</button>
                         :
                         <>
-                            <Link to='/login' className="btn glass text-black mr-4">Login</Link>
-                            <Link to='/register' className="btn glass text-black">Register</Link>
+                            <Link to='/login' className="btn glass mr-4">Login</Link>
+                            <Link to='/register' className="btn glass">Register</Link>
                         </>
                 }
             </div>
