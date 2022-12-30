@@ -8,7 +8,7 @@ const About = () => {
     const { data: updatedUserInfo = [], isLoading, refetch } = useQuery({
         queryKey: [''],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/user/${user?.uid}`);
+            const res = await fetch(`https://endgame-project-1-server.vercel.app/user/${user?.uid}`);
             const data = await res.json();
             return data
         }

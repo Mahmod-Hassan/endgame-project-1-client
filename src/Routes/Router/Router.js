@@ -26,7 +26,7 @@ const router = createBrowserRouter([
                 path: '/media/:id',
                 element: <PrivateRouter><PostDetails></PostDetails></PrivateRouter>,
                 loader: async () => {
-                    return fetch('http://localhost:5000/post')
+                    return fetch('https://endgame-project-1-server.vercel.app/post')
                 }
             },
             {

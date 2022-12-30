@@ -9,7 +9,7 @@ const Modal = ({ refetch }) => {
     const { user } = useContext(AuthContext);
 
     const updateUserInfoToDatabase = data => {
-        fetch(`http://localhost:5000/user/${user?.uid}`, {
+        fetch(`https://endgame-project-1-server.vercel.app/user/${user?.uid}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

@@ -12,7 +12,7 @@ const Post = ({ post, refetch }) => {
     // put love react
     const storedLoveReactToDatabase = id => {
 
-        fetch(`http://localhost:5000/post/${id}`, {
+        fetch(`https://endgame-project-1-server.vercel.app/post/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

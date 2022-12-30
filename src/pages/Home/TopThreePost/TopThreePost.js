@@ -7,7 +7,7 @@ const TopThreePost = () => {
     const { data: topPosts = [], isLoading, refetch } = useQuery({
         queryKey: [],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/top-post');
+            const res = await fetch('https://endgame-project-1-server.vercel.app/top-post');
             const data = await res.json();
             return data;
         }

@@ -41,7 +41,7 @@ const Login = () => {
 
     const savedUserToDatabase = (name, email, uid) => {
         const user = { name, email, uid }
-        fetch(`http://localhost:5000/user?email=${email}`, {
+        fetch(`https://endgame-project-1-server.vercel.app/user?email=${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

@@ -14,7 +14,7 @@ const PostDetails = () => {
     const { data: comments = [], isLoading } = useQuery({
         queryKey: ['comment', _id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/comment/${_id}`);
+            const res = await fetch(`https://endgame-project-1-server.vercel.app/comment/${_id}`);
             const data = await res.json();
             return data;
         }

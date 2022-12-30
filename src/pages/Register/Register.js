@@ -51,7 +51,7 @@ const Register = () => {
     // saved user to database by this function
     const savedUserToDatabase = (name, email, uid) => {
         const user = { name, email, uid }
-        fetch('http://localhost:5000/user', {
+        fetch('https://endgame-project-1-server.vercel.app/user', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
